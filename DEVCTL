@@ -1,0 +1,13 @@
+#!/bin/bash
+KEY=e263be4058f40d671d3e4728344dc5de960ca3a42679d67c995a9fb31000f719
+case $3 in
+	on*|ON*)
+		echo -n ${2}ON${RANDOM}${RANDOM}|openssl aes-256-cbc -K $KEY -iv ${KEY:16:32}|nc $1 37521
+		;;
+	of*|OF*)
+		echo -n ${2}OF${RANDOM}${RANDOM}|openssl aes-256-cbc -K $KEY -iv ${KEY:16:32}|nc $1 37521
+		;;
+	st*|ST*)
+		echo -n ${2}ST${RANDOM}${RANDOM}|openssl aes-256-cbc -K $KEY -iv ${KEY:16:32}|nc $1 37521|grep "^ON$" >/dev/null
+		;;
+esac
